@@ -4,6 +4,9 @@ import { absoluteUrl, type SiteConfig } from './site'
 import type { PostContent, PostMeta } from './types'
 
 export function llmsTxt(site: SiteConfig, posts: PostMeta[]): string {
+  const postLines = publishedPosts(posts).map(
+    (post) => `- [${post.title}](${absoluteUrl(site, markdownTwinPath(post.slug))}): ${post.description}`,
+  )
   const lines = [
     `# ${site.name}`,
     '',
@@ -13,10 +16,7 @@ export function llmsTxt(site: SiteConfig, posts: PostMeta[]): string {
     '',
     '## Posts',
     '',
-    ...publishedPosts(posts).map(
-      (post) => `- [${post.title}](${absoluteUrl(site, markdownTwinPath(post.slug))}): ${post.description}`,
-    ),
-    '',
+    ...(postLines.length > 0 ? [...postLines, ''] : []),
     '## About',
     '',
     `- [About ${site.author.name}](${absoluteUrl(site, '/about')}): bio, roles and links`,

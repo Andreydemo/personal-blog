@@ -42,3 +42,12 @@ describe('llmsFullTxt', () => {
     expect(out).not.toContain('title: "Draft"')
   })
 })
+
+describe('empty site', () => {
+  it('renders valid documents with a single blank line between sections when nothing is published', () => {
+    const out = llmsTxt(site, [draft])
+    expect(out).toContain('## Posts\n\n## About')
+    expect(out).not.toContain('\n\n\n')
+    expect(llmsFullTxt(site, [draft])).toBe('\n')
+  })
+})
