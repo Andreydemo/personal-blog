@@ -1,0 +1,29 @@
+---
+title: "How this blog is built for AI crawlers and search engines"
+description: "A walkthrough of the markdown twins, llms.txt, structured data and IndexNow pings that make this site easy for AI and search crawlers to read."
+publishedAt: "2026-09-09"
+tags: [engineering, seo, meta]
+---
+
+This site is a static Next.js build. Nothing on it needs JavaScript to read, and every post exists in two forms: HTML for people and markdown for machines.
+
+## Why markdown twins?
+
+Agents that fetch pages pay for every token. A post's markdown twin is a fraction of the size of its HTML and carries the same words. You get it two ways:
+
+- Append `.md` to any post URL, for example `/posts/hello-world.md`.
+- Send `Accept: text/markdown` when requesting the normal URL.
+
+The twin starts with a small YAML block: title, description, author, canonical URL, dates and tags.
+
+## What else is here for crawlers
+
+- `/llms.txt` lists every post with a one-line description, and `/llms-full.txt` concatenates all of them.
+- Every page carries JSON-LD: a `Person` record on the About page, `BlogPosting` on each post, `WebSite` on the home page.
+- Full-content RSS, Atom and JSON feeds.
+- A `robots.txt` that explicitly allows the major search and AI crawlers.
+- New and changed posts are pushed to IndexNow within minutes of deploying.
+
+## What is deliberately missing
+
+No cookie banner, no client-side rendering of content, no paywall, no scripts required to read a post. Comments load lazily and never block the text.
