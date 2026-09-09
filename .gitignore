@@ -1,0 +1,7 @@
+.idea/
+node_modules/
+.next/
+.velite/
+.env*
+!.env.example
+.DS_Store
