@@ -6,6 +6,12 @@ import type { PostMeta } from './types'
 
 export const OG_IMAGE = { width: 1200, height: 630 }
 
+export const feedAlternates = {
+  'application/rss+xml': [{ url: '/feed.xml', title: `${site.name} — RSS` }],
+  'application/atom+xml': [{ url: '/atom.xml', title: `${site.name} — Atom` }],
+  'application/feed+json': [{ url: '/feed.json', title: `${site.name} — JSON Feed` }],
+}
+
 type PageInput = { title?: string; description?: string; path: string }
 
 export function pageMetadata({ title, description, path }: PageInput): Metadata {
@@ -13,7 +19,7 @@ export function pageMetadata({ title, description, path }: PageInput): Metadata 
   return {
     ...(title ? { title } : {}),
     description: desc,
-    alternates: { canonical: path },
+    alternates: { canonical: path, types: { ...feedAlternates } },
     openGraph: {
       type: 'website',
       url: absoluteUrl(site, path),
@@ -31,7 +37,10 @@ export function postMetadata(post: PostMeta): Metadata {
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: path, types: { 'text/markdown': markdownTwinPath(post.slug) } },
+    alternates: {
+      canonical: path,
+      types: { ...feedAlternates, 'text/markdown': markdownTwinPath(post.slug) },
+    },
     openGraph: {
       type: 'article',
       url: absoluteUrl(site, path),

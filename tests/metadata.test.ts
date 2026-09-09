@@ -13,6 +13,14 @@ describe('pageMetadata', () => {
   it('leaves title undefined so the layout default applies', () => {
     expect(pageMetadata({ path: '/' })).not.toHaveProperty('title')
   })
+
+  it('advertises the feeds', () => {
+    expect(pageMetadata({ path: '/' }).alternates?.types).toMatchObject({
+      'application/rss+xml': [{ url: '/feed.xml' }],
+      'application/atom+xml': [{ url: '/atom.xml' }],
+      'application/feed+json': [{ url: '/feed.json' }],
+    })
+  })
 })
 
 describe('postMetadata', () => {
@@ -46,6 +54,6 @@ describe('postMetadata', () => {
   })
 
   it('advertises the markdown twin as an alternate', () => {
-    expect(postMetadata(post).alternates?.types).toEqual({ 'text/markdown': '/posts/hello.md' })
+    expect(postMetadata(post).alternates?.types).toMatchObject({ 'text/markdown': '/posts/hello.md' })
   })
 })
