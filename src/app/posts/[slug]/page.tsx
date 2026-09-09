@@ -1,10 +1,13 @@
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Byline } from '@/components/byline'
+import { JsonLd } from '@/components/json-ld'
 import { MDXContent } from '@/components/mdx-content'
 import { TagList } from '@/components/tag-list'
 import { allPosts } from '@/lib/content'
+import { blogPosting, breadcrumbs } from '@/lib/jsonld'
 import { findPost } from '@/lib/posts'
+import { site } from '@/lib/site'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -21,6 +24,8 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <article>
+      <JsonLd data={blogPosting(site, post)} />
+      <JsonLd data={breadcrumbs(site, post)} />
       <header className="mb-8 space-y-3">
         {post.draft && (
           <p className="text-sm font-medium text-amber-600">Draft — not listed or indexed</p>
