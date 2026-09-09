@@ -104,6 +104,17 @@ async function main() {
     await run()
   } finally {
     server.kill()
+    await new Promise<void>((resolve) => {
+      if (server.exitCode !== null || server.signalCode !== null) return resolve()
+      const timer = setTimeout(() => {
+        server.kill('SIGKILL')
+        resolve()
+      }, 5000)
+      server.once('exit', () => {
+        clearTimeout(timer)
+        resolve()
+      })
+    })
   }
   if (failures.length > 0) {
     console.error(`\n${failures.length} smoke check(s) failed`)
