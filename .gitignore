@@ -1,10 +1,24 @@
-.idea/
+# dependencies
 node_modules/
+# next.js
 .next/
+out/
+next-env.d.ts
+# velite output (regenerated at build)
 .velite/
+public/static/
+tests/fixtures/**/.velite/
+tests/fixtures/**/static/
+# env
 .env*
 !.env.example
+# misc
 .DS_Store
+*.pem
+npm-debug.log*
+.vercel
+.idea/
+*.tsbuildinfo
 
 # subagent-driven-development scratch
 .superpowers/
