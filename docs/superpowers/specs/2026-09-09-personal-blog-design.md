@@ -80,7 +80,7 @@ src/app/
   page.tsx                         home: short intro, latest posts
   about/page.tsx                   entity home: bio, links, Person + ProfilePage JSON-LD
   posts/[slug]/page.tsx            post page: BlogPosting + BreadcrumbList JSON-LD
-  posts/[slug]/opengraph-image.tsx generated OG image (title, date, author)
+  posts/[slug]/og/route.tsx        generated OG image (title, date, author), static
   md/[slug]/route.ts               markdown twin, Content-Type text/markdown
   tags/page.tsx                    all tags with counts
   tags/[tag]/page.tsx              posts for one tag
@@ -101,7 +101,7 @@ src/lib/
   feeds.ts                         RSS/Atom/JSON feed builders
   llms.ts                          llms.txt / llms-full.txt builders
 src/components/                    PostCard, PostList, Prose, TagList, Byline, Giscus (phase 2)
-mdx-components.tsx                 MDX component map (links, images, code)
+src/components/mdx-components.tsx  MDX component map (links)
 velite.config.ts                   content schema
 next.config.ts                     rewrites, redirects, headers
 public/<indexnow-key>.txt          IndexNow key file (public by design)
@@ -139,7 +139,8 @@ Build fails on: invalid frontmatter, duplicate slug, non-kebab slug or tag,
 
 `draft: true` posts are excluded from listings, tag pages, feeds, sitemap,
 `llms*.txt` and IndexNow. They are still built at `/posts/<slug>` so the author
-can preview them on preview deployments (which Vercel marks `noindex`).
+can preview them on preview deployments (which Vercel marks `noindex`). Draft
+pages also carry a `noindex, nofollow` robots meta tag.
 
 ### 5.3 Editorial conventions (documented in `content/README.md`)
 
@@ -194,9 +195,9 @@ from `site.ts` and are emitted as `verification` metadata.
 - **ProfilePage** on `/about` with `mainEntity` → Person.
 - **WebSite** on `/`: `name`, `url`, `author`/`publisher` → Person by `@id`.
 - **BlogPosting** on each post: `headline`, `description`, `datePublished`,
-  `dateModified`, `keywords`, `image` (generated OG), `mainEntityOfPage`,
+  `dateModified`, `keywords`, `image` (`/posts/<slug>/og`), `mainEntityOfPage`,
   `author` → Person by `@id`, `wordCount`.
-- **BreadcrumbList** on each post: Home → Posts → title.
+- **BreadcrumbList** on each post: Home → post title.
 
 Rendered as `<script type="application/ld+json">` in the page. Builders are
 typed with `schema-dts` and unit-tested.
@@ -222,7 +223,7 @@ tags: [a, b]
 
 Headers: `Content-Type: text/markdown; charset=utf-8`, `Vary: Accept`.
 Caching is Next's static-output default; no custom `Cache-Control`.
-Unknown slug → 404 with `text/plain` body.
+Unknown slug → 404.
 
 `next.config.ts` rewrites, both in `beforeFiles`:
 
@@ -322,7 +323,7 @@ Vercel. Path is preserved on redirect (`korkoshko.com/posts/x` →
 
 - Invalid content fails `velite` and therefore the build; Vercel keeps the
   previous deployment live.
-- Unknown post slug on `/posts/...` or `/md/...` → 404.
+- Unknown post slug on `/posts/...`, `/posts/....md` or `/md/...` → 404 page.
 - `Accept: text/markdown` on non-post routes is ignored (rewrite is scoped to
   `/posts/:slug`).
 - Trailing-slash URLs are redirected by Next.js defaults to the canonical form.
