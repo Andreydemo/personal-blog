@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { PostList } from '@/components/post-list'
 import { allPosts } from '@/lib/content'
+import { pageMetadata } from '@/lib/metadata'
 import { allTags, postsByTag } from '@/lib/posts'
 
 type Props = { params: Promise<{ tag: string }> }
@@ -13,7 +14,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props) {
   const { tag } = await params
-  return { title: `#${tag}` }
+  return pageMetadata({ title: `#${tag}`, path: `/tags/${tag}` })
 }
 
 export default async function TagPage({ params }: Props) {

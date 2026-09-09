@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Byline } from '@/components/byline'
@@ -6,6 +7,7 @@ import { MDXContent } from '@/components/mdx-content'
 import { TagList } from '@/components/tag-list'
 import { allPosts } from '@/lib/content'
 import { blogPosting, breadcrumbs } from '@/lib/jsonld'
+import { postMetadata } from '@/lib/metadata'
 import { findPost } from '@/lib/posts'
 import { site } from '@/lib/site'
 
@@ -15,6 +17,13 @@ export const dynamicParams = false
 
 export function generateStaticParams() {
   return allPosts.map((post) => ({ slug: post.slug }))
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const post = findPost(allPosts, slug)
+  if (!post) notFound()
+  return postMetadata(post)
 }
 
 export default async function PostPage({ params }: Props) {

@@ -1,8 +1,9 @@
 import Link from 'next/link'
 import { allPosts } from '@/lib/content'
+import { pageMetadata } from '@/lib/metadata'
 import { allTags } from '@/lib/posts'
 
-export const metadata = { title: 'Tags' }
+export const metadata = pageMetadata({ title: 'Tags', path: '/tags' })
 
 export default function TagsPage() {
   const tags = allTags(allPosts)

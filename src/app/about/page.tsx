@@ -1,13 +1,14 @@
 import Image from 'next/image'
 import { JsonLd } from '@/components/json-ld'
 import { person, profilePage } from '@/lib/jsonld'
+import { pageMetadata } from '@/lib/metadata'
 import { site } from '@/lib/site'
 
-export const metadata = {
+export const metadata = pageMetadata({
   title: 'About',
   description: `${site.author.name}: ${site.author.bio}`,
-  alternates: { canonical: '/about' },
-}
+  path: '/about',
+})
 
 export default function AboutPage() {
   const links = [
