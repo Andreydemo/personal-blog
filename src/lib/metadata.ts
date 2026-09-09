@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { markdownTwinPath } from './markdown'
 import { lastModified } from './posts'
 import { absoluteUrl, site } from './site'
 import type { PostMeta } from './types'
@@ -30,7 +31,7 @@ export function postMetadata(post: PostMeta): Metadata {
   return {
     title: post.title,
     description: post.description,
-    alternates: { canonical: path },
+    alternates: { canonical: path, types: { 'text/markdown': markdownTwinPath(post.slug) } },
     openGraph: {
       type: 'article',
       url: absoluteUrl(site, path),

@@ -10,6 +10,22 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
+  async rewrites() {
+    return {
+      beforeFiles: [
+        // /posts/<slug>.md → markdown twin
+        { source: '/posts/:slug\\.md', destination: '/md/:slug' },
+        // /posts/<slug> with Accept: text/markdown → markdown twin
+        {
+          source: '/posts/:slug',
+          has: [{ type: 'header', key: 'accept', value: '.*text/markdown.*' }],
+          destination: '/md/:slug',
+        },
+      ],
+      afterFiles: [],
+      fallback: [],
+    }
+  },
 }
 
 export default nextConfig

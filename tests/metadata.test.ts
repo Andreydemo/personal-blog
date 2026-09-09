@@ -44,4 +44,8 @@ describe('postMetadata', () => {
   it('marks drafts noindex', () => {
     expect(postMetadata(makePost({ draft: true })).robots).toEqual({ index: false, follow: false })
   })
+
+  it('advertises the markdown twin as an alternate', () => {
+    expect(postMetadata(post).alternates?.types).toEqual({ 'text/markdown': '/posts/hello.md' })
+  })
 })
