@@ -395,6 +395,19 @@ Phase 3 is a procedure plus one checklist document. Phase 4 gets its own spec.
 Supabase with a weekly GitHub Actions keep-alive ping; optional Resend for
 sending. Separate spec.
 
+**Phase 5 — Research and scholarly profile (future, own spec).** The author
+has university-era research papers and a public scholar profile at
+https://adscientificindex.com/scientist/andrii-korkoshko/5051663/ and wants
+a large expansion of that side of the public profile. Expected shape, to be
+brainstormed when the phase starts: a `content/papers/` Velite collection
+(title, authors, venue, year, DOI, abstract, PDF, tags) rendered at
+`/research` and `/research/<slug>` with `ScholarlyArticle` JSON-LD linked to
+the Person `@id`; self-hosted PDFs with `citation_*` meta tags so Google
+Scholar indexes them; a downloadable BibTeX per paper; ORCID, Google Scholar,
+Semantic Scholar and AD Scientific Index URLs added to the Person `sameAs`
+list; a research section in `llms.txt` and the sitemap. Adding the AD
+Scientific Index URL to `sameAs` is done in phase 2 already.
+
 ## 12. Out of scope for this spec
 
 Site search UI, Ukrainian locale, Keystatic or any web editor, Supabase and
