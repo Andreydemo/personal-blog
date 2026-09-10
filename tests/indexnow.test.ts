@@ -33,6 +33,13 @@ describe('isDraftSource', () => {
     expect(isDraftSource('---\ntitle: "x"\n---\nbody')).toBe(false)
     expect(isDraftSource('---\ntitle: "x"\n---\ndraft: true')).toBe(false)
   })
+
+  it('handles CRLF line endings and quoted booleans', () => {
+    expect(isDraftSource('---\r\ntitle: "x"\r\ndraft: true\r\n---\r\nbody')).toBe(true)
+    expect(isDraftSource('---\ntitle: "x"\ndraft: "true"\n---\nbody')).toBe(true)
+    expect(isDraftSource("---\ntitle: \"x\"\ndraft: 'true'\n---\nbody")).toBe(true)
+    expect(isDraftSource('---\r\ntitle: "x"\r\ndraft: false\r\n---\r\nbody')).toBe(false)
+  })
 })
 
 describe('findIndexNowKey', () => {

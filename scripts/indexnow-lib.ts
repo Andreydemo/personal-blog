@@ -23,8 +23,9 @@ export function slugFromFile(file: string): string | null {
 
 /** True when the frontmatter block (between the first two `---` lines) contains `draft: true`. */
 export function isDraftSource(source: string): boolean {
-  const match = /^---\n([\s\S]*?)\n---/.exec(source)
-  return match ? /^draft:\s*true\s*$/m.test(match[1]) : false
+  const normalized = source.replace(/\r\n/g, '\n')
+  const match = /^---\n([\s\S]*?)\n---/.exec(normalized)
+  return match ? /^draft:\s*["']?true["']?\s*$/m.test(match[1]) : false
 }
 
 export function findIndexNowKey(files: string[]): string | null {
