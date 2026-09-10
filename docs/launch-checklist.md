@@ -11,7 +11,9 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 - [x] **Author inputs**: job title, employer and the scholar profile links are in `src/lib/site.ts`.
 - [ ] **Still open in `site.ts`**: `author.image` (headshot in `public/images/`) and `social.x` if wanted.
 - [ ] **ORCID**: set the nine employment entries to "Everyone"; enable Works → Add → Import from other services → DataCite (auto-adds future Zenodo records).
+- [ ] **ORCID**: add the second report, DOI `10.5281/zenodo.22698236` (Works → Add → Add DOI), unless the DataCite import above has picked it up.
 - [ ] **Syndicate the SSRF post**: Hacker News, Lobsters, r/netsec, dev.to (canonical link back).
+- [ ] **Syndicate the agents post** (`/posts/agents-as-internal-services`): Hacker News, Lobsters, dev.to (canonical link back), LinkedIn.
 - [ ] **Structured data check** after the above: https://validator.schema.org/ on `/posts/hello-world` and `/about`; Google Rich Results Test on a post.
 
 ## Phase 3 — distribution (manual, ongoing)

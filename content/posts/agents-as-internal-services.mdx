@@ -3,7 +3,7 @@ title: "Agents as internal services: running an LLM agent inside the system, aga
 description: "Turning a chat agent runtime into a headless worker that reads its own system via MCP, writes context for a second model, and is evaluated as a build artifact."
 publishedAt: "2026-09-10"
 tags: [engineering, ai-agents, llm, mcp]
-draft: true
+draft: false
 ---
 
 Most agent deployments I see are a chat box on top of a product. Ours started that way too. This is a write-up of the second step: using the same agent runtime as an internal service, called by a backend job, with no user in the loop, to produce an artifact that another model consumes. The domain does not matter for what follows. What matters is the shape of the system, what had to change to make an agent a reliable component rather than a demo, and what we learned about generated context as a first-class artifact. Deciding what a model gets to see now has a name, [context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents); here the one doing the deciding is another agent.
