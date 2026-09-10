@@ -396,17 +396,30 @@ Supabase with a weekly GitHub Actions keep-alive ping; optional Resend for
 sending. Separate spec.
 
 **Phase 5 — Research and scholarly profile (future, own spec).** The author
-has university-era research papers and a public scholar profile at
-https://adscientificindex.com/scientist/andrii-korkoshko/5051663/ and wants
-a large expansion of that side of the public profile. Expected shape, to be
-brainstormed when the phase starts: a `content/papers/` Velite collection
-(title, authors, venue, year, DOI, abstract, PDF, tags) rendered at
-`/research` and `/research/<slug>` with `ScholarlyArticle` JSON-LD linked to
-the Person `@id`; self-hosted PDFs with `citation_*` meta tags so Google
-Scholar indexes them; a downloadable BibTeX per paper; ORCID, Google Scholar,
-Semantic Scholar and AD Scientific Index URLs added to the Person `sameAs`
-list; a research section in `llms.txt` and the sitemap. Adding the AD
-Scientific Index URL to `sameAs` is done in phase 2 already.
+has university-era research papers and wants a large expansion of the
+scholarly side of the public profile: existing papers attributed and cited,
+new papers published, and the main scholar profiles established as the
+canonical record (the AD Scientific Index page,
+https://adscientificindex.com/scientist/andrii-korkoshko/5051663/, is one
+mirror of that record, not the target). Expected shape, to be brainstormed
+when the phase starts:
+
+- Identity: ORCID iD as the hub; Google Scholar profile (claimed, with
+  alerts for new citations), Semantic Scholar and OpenAlex author pages
+  (claimed/merged), ResearchGate, dblp if applicable. All URLs added to the
+  Person `sameAs` list and to the About page.
+- Existing papers: locate each paper's DOI or, where none exists, deposit a
+  copy on Zenodo (free DOI) so it becomes citable; make sure each is linked to
+  the ORCID iD.
+- New papers: preprint workflow (arXiv, SSRN or Zenodo depending on field)
+  with DOI, then listing on the site the day it is public.
+- Site: a `content/papers/` Velite collection (title, authors, venue, year,
+  DOI, abstract, PDF, tags) rendered at `/research` and `/research/<slug>`,
+  `ScholarlyArticle` JSON-LD linked to the Person `@id`, self-hosted PDFs with
+  `citation_*` meta tags so Google Scholar indexes the site as a source, a
+  BibTeX per paper, and a research section in `llms.txt` and the sitemap.
+- Measurement: citation counts pulled from OpenAlex or Semantic Scholar APIs
+  on a schedule (a static build step, no database) and shown per paper.
 
 ## 12. Out of scope for this spec
 
