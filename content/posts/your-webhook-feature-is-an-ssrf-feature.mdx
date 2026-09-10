@@ -3,7 +3,7 @@ title: "Your webhook feature is an SSRF feature until proven otherwise"
 description: "How a customer-configurable webhook became a network oracle, and the four-layer guard (parse, resolve, pin at connect, re-check at send) that closed it."
 publishedAt: "2026-09-10"
 tags: [engineering, security]
-draft: true
+draft: false
 ---
 
 A SaaS backend lets customers register a webhook URL. When something happens, the server POSTs a signed JSON payload to that URL and stores the outcome, and the outcome, failure reason included, is shown back to the customer so they can debug their endpoint. A third-party security assessment flagged it as server-side request forgery, [CWE-918](https://cwe.mitre.org/data/definitions/918.html). The URL is fully customer-controlled, the request originates inside the private network, and nothing restricted where it could go. This is what it took to close it properly, including the parts I got wrong the first time.
