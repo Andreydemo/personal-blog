@@ -1,0 +1,230 @@
+---
+title: "How to prompt ChatGPT and Claude: the short guide"
+description: "Skip the role play, brief the model like a junior associate, make it write the prompt or interview you, and set up ChatGPT and Claude once. Every claim sourced."
+publishedAt: "2026-09-10"
+tags: [ai, prompting, chatgpt, claude]
+draft: true
+---
+
+Most prompting advice is either "you are a world-class expert" theatre or a three-thousand-word listicle. This is the rest: what works in the two apps most people use, in the order you will need it, with the vendors' own documentation and the research behind each claim. No API, no code, no magic words.
+
+**Key takeaways**
+
+- Roles do not improve answers. Instructions do.
+- Brief the model like a junior associate: goal, material, constraints, an example of good, and what to do when unsure.
+- Make the model write the prompt, or interview you, before it does the work.
+- Thinking mode for hard tasks, instant for the rest. Documents first, question last.
+- Ten minutes of setup (instructions, memory, one Project per recurring job) beats any single prompt.
+- Pay when you hit limits twice a week or need the top model daily.
+
+## Why "you are an expert" does nothing
+
+[Zheng et al.](https://arxiv.org/abs/2311.10054) tested persona prompts across four model families and 2,410 factual questions and found that "adding personas in system prompts does not improve model performance" compared with no persona. Two 2026 follow-ups say the same in different words: expert personas show ["near-zero or negative impact on general utility"](https://arxiv.org/abs/2603.18507), and across 1,140 open-ended questions and 38 expert roles the practical value ["remains unclear"](https://arxiv.org/abs/2605.29420). The vendors agree on what a role is for. Anthropic's [prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) say a role "focuses Claude's behavior and tone"; OpenAI's [personality guide](https://developers.openai.com/cookbook/examples/gpt-5/prompt_personalities) treats it as a style preset. Tone, not accuracy.
+
+So: use a role when you want a voice ("answer like a patient teacher"). For a better answer, spend those words on the brief.
+
+Before:
+
+```text
+You are a world-class marketing expert. Write a great landing page for my app.
+```
+
+After:
+
+```text
+Write the landing-page copy for a habit-tracking app aimed at people who have
+quit other habit apps. Readers: 30 to 45, sceptical, on a phone.
+Tone: plain. No "unleash", "supercharge", "effortless".
+Sections: headline, three benefits (one sentence each), one testimonial slot,
+one call to action. 180 words maximum.
+Current copy to improve is below. If you need something about the product
+that is not here, ask before writing.
+```
+
+The second prompt has no role and every sentence changes the output.
+
+## Brief it like a junior associate
+
+A junior associate on their first day needs five things, and so does the model. Anthropic's docs put it the same way: "Think of Claude as a brilliant but new employee who lacks context on your norms and workflows," with a golden rule worth taping to the monitor: show the prompt to a colleague with no context; if they would be confused, the model is too.
+
+1. **Goal, and who it is for.** "A summary" is not a goal. "A one-paragraph summary for the CFO who will decide whether to fund this" is.
+2. **Material.** Paste it or attach it. Do not describe it. The model cannot read your screen.
+3. **Constraints.** Length, format, language, tone, and what not to do. OpenAI's [GPT-5 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide) warns that "contradictory or vague instructions can be more damaging to GPT-5 than to other models", so read your constraints once for conflicts.
+4. **What good looks like.** One example beats three adjectives. Anthropic's docs call examples "one of the most reliable ways to steer" output and recommend three to five.
+5. **What to do when unsure.** Ask first, or say "I don't know". Without this line the model guesses, because guessing is what it was asked to do.
+
+Add the why when you can. The same docs: explaining the motivation behind an instruction helps the model "generalize from the explanation", so "keep it under 200 words because it goes in a text message" beats "keep it short".
+
+The brief, as a template you can paste:
+
+```text
+Task: <what you want, one sentence>
+For: <who reads the result and what they will do with it>
+Material: <pasted text, attached files, links>
+Constraints: <length, format, tone, language, must-not>
+Good looks like: <an example, or "match the attached sample">
+If unsure: ask me before starting. If you do not know something, say so.
+```
+
+You will not fill every line every time. The point is to notice which line you skipped.
+
+## Make it write the prompt
+
+The model knows what it needs better than you do. Ask for the prompt, not the answer:
+
+```text
+I want to <goal>. Write the prompt you would need to do this well.
+Ask me for anything that is missing. Then wait.
+```
+
+Answer its questions, then say "now run it", or paste the finished prompt into a fresh chat where nothing earlier can leak in. OpenAI ships this idea for developers as a [Prompt Optimizer](https://developers.openai.com/api/docs/guides/prompt-optimizer) that rewrites a prompt against its best practices and flags contradictions and ambiguity; in the chat app, the sentence above does the same job.
+
+A real exchange, trimmed:
+
+```text
+Me: I want to write a reference letter for a former report. Write the prompt
+    you would need, ask for what is missing, then wait.
+
+Model: I need: 1) the role they are applying for and the reader,
+    2) two or three specific things they did with outcomes,
+    3) how long you managed them and in what capacity,
+    4) anything you will not vouch for, 5) length and formality.
+
+Me: [five short answers]
+
+Model: Here is the prompt: "Write a reference letter for ... "
+```
+
+The letter that came out of that prompt needed one edit. The letter from "write a reference letter for my former report, she was great" needed a rewrite.
+
+## Make it interview you
+
+Same idea, applied to the work itself:
+
+```text
+Before you do anything, ask me up to five questions whose answers would
+change the result. Then do it.
+```
+
+ChatGPT's [deep research](https://help.openai.com/en/articles/10500283-deep-research-faq) does this natively: it proposes a research plan you can edit and "may ask clarifying questions to confirm your goals" before it starts. The sentence above gives you the same step on any task, in either app.
+
+Worked example, "plan five days in Lisbon":
+
+```text
+Model: 1) Dates? 2) Budget per day, excluding hotel? 3) How much walking
+    is fine: hills every day, or flat routes? 4) Any food you avoid?
+    5) Museums or neighbourhoods?
+
+Me: Late October, 80 euros, hills fine, no shellfish, neighbourhoods.
+```
+
+The plan that follows has no shellfish, no rainy-day gaps, and no museum queue. Without the questions it is the same plan everyone gets.
+
+## Habits that compound
+
+- **Documents first, question last.** Anthropic's long-context guidance: put long documents "near the top of your prompt, above your query, instructions, and examples". Paste the report, then ask.
+- **One task per message.** Two tasks in one message get one good answer and one half answer. Send the second after the first is right.
+- **Say "do", not "could you".** Current Claude models follow instructions literally: the docs note that "can you suggest some changes" often produces suggestions rather than changes. If you want the edit, say "make the changes".
+- **Ask for assumptions.** "List the assumptions you made" surfaces the guesses before you build on them.
+- **Ask for a self-check.** Anthropic's docs: append "Before you finish, verify your answer against [criteria]"; it "catches errors reliably, especially for coding and math".
+- **Set a hard length.** OpenAI's [GPT-5.2 guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5-2_prompting_guide) uses concrete caps such as "3 to 6 sentences or at most 5 bullets". Vague ("brief") gets ignored; numeric gets obeyed.
+- **Thinking mode for anything multi-step.** Both apps have it (next two sections). Instant mode is for chat, not for a tax question.
+- **Ask for sources, then open two.** Any claim with a number gets a source request. If the source does not say it, the rest of the answer is suspect too.
+
+## Claude
+
+**Models by plan.** Per the [pricing page](https://claude.com/pricing), Free gets Sonnet and Haiku; Pro adds Opus and unlimited Projects; Max adds Fable within weekly limits. Sonnet is the daily driver. Opus is for long documents, analysis and anything you would give a senior colleague. Haiku is speed.
+
+**It thinks on its own.** Opus 5 and Sonnet 5 use adaptive thinking, on by default, and the docs say the trigger "is promptable": telling Claude a task is tricky and to think it through changes how much it reasons. You do not need a toggle.
+
+**It follows literally, and Opus 5 runs long.** The docs single out Opus 5 for longer default answers. State the length you want in the prompt; it obeys numbers.
+
+**Projects** (Pro and up): a folder with its own instructions and "knowledge" files, and, per the [memory article](https://support.claude.com/en/articles/11817273), its own separate memory space. One Project per recurring job: "weekly report", "cover letters", "the novel".
+
+**Instructions for Claude, and Styles.** In Settings, [Instructions for Claude](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features) apply to every conversation; Styles change tone and format only, and you can make a custom Style from samples of your own writing.
+
+**Memory.** Settings → Memory. Claude saves topics as you chat, you can read and edit every topic, and you can tell it in a chat to remember, change or forget something. Sensitive topics (health, politics, religion) are excluded unless you opt in. The ghost icon opens an incognito chat that leaves no memory.
+
+## ChatGPT
+
+**Models by plan.** The [GPT-5.6 help article](https://help.openai.com/en/articles/20001354-gpt-56-in-chatgpt) lays it out. Free and Go get GPT-5.6 Luna, with a "Think" option for harder questions that also runs on Luna. Plus gets GPT-5.6 Sol with a reasoning slider (Instant, Medium, High). Pro adds Extra High and the Pro models: GPT-5.6 Sol Pro and GPT-6 Pro, capped at 50 messages a week on Pro $100 and 200 a week on Pro $200.
+
+**Let it decide when to think.** Settings → General → "Higher intelligence" lets ChatGPT use more reasoning automatically for complex requests while Instant stays selected, on paid plans. Turn it on and pick a level by hand only when you know the task is hard.
+
+**Precise beats clever.** OpenAI's [prompt engineering guide](https://developers.openai.com/api/docs/guides/prompt-engineering) says reasoning models "work best with high-level guidance" while non-reasoning models "benefit from very precise instructions". In the app the slider decides which you get, so write precisely either way and let the reasoning modes ignore what they do not need.
+
+**Custom instructions.** Settings → Personalization. Applied to every chat immediately. [Limits](https://help.openai.com/en/articles/8096356-custom-instructions-for-chatgpt): 1,500 characters on Free and Go, 5,000 on paid plans.
+
+**Memory.** Settings → Personalization → Memory. ChatGPT keeps a [memory summary](https://help.openai.com/en/articles/8590148-memory-faq) that updates as you chat; type a correction at the bottom of it to change what it believes. The book icon under a response shows which memories and instructions shaped it. Temporary Chats use no memory and save none.
+
+**Projects** are on [every plan](https://help.openai.com/en/articles/10169521-projects-in-chatgpt): files plus project instructions, which override your global custom instructions inside the project, and a project memory that remembers the chats in it. Save a good response to the project so later chats can reuse it.
+
+**Deep research.** Type `@Deepresearch` or pick it from the + menu, describe the outcome, edit the plan it proposes, restrict sources under Sites → Manage sites. Every output carries citations. Free has a small monthly allowance; Plus and Pro expand it.
+
+## Set up your app once
+
+**Claude, four steps.**
+
+1. Settings → Instructions for Claude: paste the preferences text below.
+2. Settings → Memory: leave "Generate memory from chats" on; read the Topics list once a month and delete what is stale.
+3. On Pro: create one Project per recurring job, with instructions and the files it always needs.
+4. Make one custom Style from three samples of your own writing, and use it for anything that goes out under your name.
+
+**ChatGPT, four steps.**
+
+1. Settings → Personalization → Custom instructions: paste the preferences text below (mind the 1,500-character limit on Free).
+2. Settings → Personalization → Memory: on. Read the memory summary once and correct it.
+3. On a paid plan, Settings → General → Higher intelligence: on.
+4. Create one Project per recurring job, with project instructions and the files it always needs.
+
+**Preferences text, fill in the brackets.** It is short on purpose; the model reads it on every message.
+
+```text
+About me: <role, what I work on, my level in the topics I usually ask about>.
+Answer style: lead with the answer. Short paragraphs. No headings under
+300 words. No bullet lists unless I ask. <British/American> English.
+Avoid: hedging, "as an AI", restating my question, motivational filler, emojis.
+When unsure: ask one question before starting. If you do not know, say so.
+Code: <language and style>. Complete files, no placeholders.
+```
+
+## Which plan
+
+Prices are the vendors' as of 10 September 2026 and change often; the links are the source of truth.
+
+| Plan | Price | What you get | Pay for it when |
+|---|---|---|---|
+| ChatGPT Free | $0 | GPT-5.6 Luna, unlimited text chats; limited uploads, voice, deep research and memory | Never, if you use it a few times a week |
+| ChatGPT Go | priced by country | More voice, longer memory | You hit the free limits and do not need Sol |
+| [ChatGPT Plus](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus) | $20/month | GPT-5.6 Sol with Medium and High reasoning, expanded deep research and memory, scheduled tasks, custom GPTs | You work in it daily |
+| [ChatGPT Pro](https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers) | $100 or $200/month | Extra High reasoning, GPT-5.6 Sol Pro and GPT-6 Pro with weekly caps | You need the top model daily; the $200 tier is paused for new sign-ups as of 10 September 2026 |
+| Claude Free | $0 | Sonnet and Haiku, memory, web search, voice | Same as ChatGPT Free |
+| [Claude Pro](https://claude.com/pricing) | $17/month annual, $20 monthly | Opus, unlimited Projects, Claude Code, more usage | You want Opus or Projects |
+| Claude Max | from $100/month | 5x or 20x Pro usage, Fable within weekly limits | You hit Pro limits twice a week |
+
+Rule of thumb: pay when you hit the free limits twice in one week, or when the job needs the top model every day. Otherwise the free tiers plus the setup above are enough for most people.
+
+## References
+
+1. Zheng, Pei, Logeswaran, Lee, Jurgens, [When "A Helpful Assistant" Is Not Really Helpful: Personas in System Prompts Do Not Improve Performances of Large Language Models](https://arxiv.org/abs/2311.10054), EMNLP Findings 2024.
+2. Hu et al., [Expert Personas Improve LLM Alignment but Damage Accuracy](https://arxiv.org/abs/2603.18507), 2026; Xiao et al., [When Does Persona Prompting Actually Help?](https://arxiv.org/abs/2605.29420), 2026.
+3. Anthropic, [Prompting best practices](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices) (clarity, context, examples, roles, long context, thinking, self-checks).
+4. OpenAI, [Prompt engineering guide](https://developers.openai.com/api/docs/guides/prompt-engineering); [GPT-5 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5_prompting_guide); [GPT-5.2 prompting guide](https://developers.openai.com/cookbook/examples/gpt-5/gpt-5-2_prompting_guide); [Prompt personalities](https://developers.openai.com/cookbook/examples/gpt-5/prompt_personalities); [Prompt Optimizer](https://developers.openai.com/api/docs/guides/prompt-optimizer).
+5. OpenAI Help Center, [GPT-5.6 and GPT-6 Pro in ChatGPT](https://help.openai.com/en/articles/20001354-gpt-56-in-chatgpt); [Custom instructions](https://help.openai.com/en/articles/8096356-custom-instructions-for-chatgpt); [Memory FAQ](https://help.openai.com/en/articles/8590148-memory-faq); [Projects](https://help.openai.com/en/articles/10169521-projects-in-chatgpt); [Deep research](https://help.openai.com/en/articles/10500283-deep-research-faq); [What is ChatGPT Plus?](https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus); [About ChatGPT Pro tiers](https://help.openai.com/en/articles/9793128-about-chatgpt-pro-tiers).
+6. OpenAI, [ChatGPT pricing](https://openai.com/chatgpt/pricing/).
+7. Anthropic, [Claude pricing](https://claude.com/pricing); Claude Help Center, [Understanding Claude's personalization features](https://support.claude.com/en/articles/10185728-understanding-claude-s-personalization-features); [Chat search and memory](https://support.claude.com/en/articles/11817273).
+
+## Cite this article
+
+Korkoshko, A. (2026, September 10). *How to prompt ChatGPT and Claude: the short guide.* andrii.korkoshko.com. https://andrii.korkoshko.com/posts/how-to-prompt-chatgpt-and-claude
+
+```bibtex
+@misc{korkoshko2026promptguide,
+  author       = {Korkoshko, Andrii},
+  title        = {How to prompt {ChatGPT} and {Claude}: the short guide},
+  year         = {2026},
+  month        = sep,
+  howpublished = {\url{https://andrii.korkoshko.com/posts/how-to-prompt-chatgpt-and-claude}},
+  note         = {Blog post}
+}
+```
