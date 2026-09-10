@@ -4,10 +4,10 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 
 ## Do now (dashboards, your logins)
 
-- [ ] **Giscus app.** Install https://github.com/apps/giscus on `Andreydemo/personal-blog`. Until then every published post shows a giscus error box instead of comments. Discussions are enabled and the IDs are already in `src/lib/site.ts`.
-- [ ] **Google Search Console.** Add a *Domain* property for `korkoshko.com` (covers `andrii.korkoshko.com`), verify with the TXT record it gives you at GoDaddy (host `@`), submit `https://andrii.korkoshko.com/sitemap.xml`, then URL Inspection → request indexing for the two posts.
+- [x] **Giscus app.** Install https://github.com/apps/giscus on `Andreydemo/personal-blog`. Until then every published post shows a giscus error box instead of comments. Discussions are enabled and the IDs are already in `src/lib/site.ts`.
+- [x] **Google Search Console.** Add a *Domain* property for `korkoshko.com` (covers `andrii.korkoshko.com`), verify with the TXT record it gives you at GoDaddy (host `@`), submit `https://andrii.korkoshko.com/sitemap.xml`, then URL Inspection → request indexing for the two posts.
 - [ ] **Bing Webmaster Tools.** Sign in → *Import from Google Search Console*. Check Sitemaps lists the sitemap and IndexNow shows the key `db3967001a5037a893f96d2a56d5c33a` as verified. (Bing feeds ChatGPT search and Copilot.)
-- [ ] **Vercel.** Domains: change the `www.korkoshko.com` redirect target to `andrii.korkoshko.com` (it currently hops via the apex). Firewall: confirm the "AI Bots" managed ruleset is off and Attack Challenge Mode is off. Analytics: confirm Web Analytics is enabled.
+- [x] **Vercel.** Domains: `www.korkoshko.com` now redirects straight to `andrii.korkoshko.com`. Firewall: confirm the "AI Bots" managed ruleset is off and Attack Challenge Mode is off. Analytics: confirm Web Analytics is enabled.
 - [ ] **Author inputs** in `src/lib/site.ts`: `author.jobTitle` and `author.employer` worded exactly as on LinkedIn; `author.image` (drop a headshot in `public/images/` and set the path); `social.x` if wanted. Each is a one-line edit; commit to `main` deploys it.
 - [ ] **Structured data check** after the above: https://validator.schema.org/ on `/posts/hello-world` and `/about`; Google Rich Results Test on a post.
 
