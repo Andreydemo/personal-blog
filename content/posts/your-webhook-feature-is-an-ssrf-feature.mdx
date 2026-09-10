@@ -2,6 +2,7 @@
 title: "Your webhook feature is an SSRF feature until proven otherwise"
 description: "How a customer-configurable webhook became a network oracle, and the four-layer guard (parse, resolve, pin at connect, re-check at send) that closed it."
 publishedAt: "2026-09-10"
+updatedAt: "2026-09-10"
 tags: [engineering, security]
 draft: false
 ---
@@ -137,9 +138,13 @@ HttpClient(OkHttp) {
 }
 ```
 
+## Companion code and technical report
+
+The guard is published as an open-source Kotlin/JVM library, [ssrf-guard](https://github.com/Andreydemo/ssrf-guard) (Apache-2.0): the URL policy, the address classifier including the IPv6 transition forms and the RFC 8215 local-use NAT64 prefix, the public-only resolver, and an OkHttp `Dns` adapter, with the test vectors below as its test suite. A [technical report](https://github.com/Andreydemo/ssrf-guard/blob/main/docs/report.pdf) with the threat model, design and evaluation ships with each release.
+
 ## A test set you can reuse
 
-Should be rejected: `https://127.0.0.1/`, `https://10.0.0.1/`, `https://169.254.169.254/`, `https://[::1]/`, `https://[::ffff:10.0.0.1]/`, `https://[64:ff9b::a00:1]/`, `https://10.0.0.1.nip.io/`, `https://localhost/`, `https://metadata.google.internal/`, `http://example.com/`, `https://example.com:8443/`, `https:///path`, `https://exa mple.com/`.
+Should be rejected: `https://127.0.0.1/`, `https://10.0.0.1/`, `https://169.254.169.254/`, `https://[::1]/`, `https://[::ffff:10.0.0.1]/`, `https://[64:ff9b::a00:1]/`, `https://[64:ff9b:1::a00:1]/`, `https://10.0.0.1.nip.io/`, `https://localhost/`, `https://metadata.google.internal/`, `http://example.com/`, `https://example.com:8443/`, `https:///path`, `https://exa mple.com/`.
 
 Should be accepted: a public HTTPS endpoint on port 443. Then confirm the failure text for a dead public host is the static message and nothing else.
 
