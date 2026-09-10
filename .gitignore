@@ -22,3 +22,6 @@ npm-debug.log*
 
 # subagent-driven-development scratch
 .superpowers/
+
+# local-only inputs (CV, notes); never committed
+private/
