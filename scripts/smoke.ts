@@ -6,7 +6,7 @@ const PORT = 3999
 const BASE = `http://localhost:${PORT}`
 const SITEMAP_URL = `${site.url}/sitemap.xml`
 
-type Post = { slug: string; draft: boolean }
+type Post = { slug: string; draft: boolean; raw: string }
 type JsonLd = { '@type'?: string; '@id'?: string; author?: { '@id'?: string } }
 
 const posts: Post[] = JSON.parse(readFileSync('.velite/posts.json', 'utf8'))
@@ -98,6 +98,12 @@ async function run() {
 
   for (const tag of site.featuredTags) {
     check(`featured tag /tags/${tag} is 200`, (await fetch(`${BASE}/tags/${tag}`)).status === 200)
+  }
+
+  const diagramPost = posts.find((post) => post.raw.includes('```mermaid'))
+  if (diagramPost) {
+    const diagramHtml = await (await fetch(`${BASE}/posts/${diagramPost.slug}`)).text()
+    check(`mermaid source is server-rendered on /posts/${diagramPost.slug}`, diagramHtml.includes('language-mermaid'))
   }
 
   check('unknown post is 404', (await fetch(`${BASE}/posts/definitely-missing`)).status === 404)

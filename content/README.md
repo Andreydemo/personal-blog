@@ -25,3 +25,7 @@ The build fails on invalid frontmatter. Run `pnpm typecheck` to validate content
 - Prefer plain markdown. Custom MDX components are the exception, because the raw source is also served as `/posts/<slug>.md`, in feeds and in `llms-full.txt`.
 - Link to sources and to related posts here.
 - Publish by committing to `main`. Preview a draft on a Vercel preview deployment (those are `noindex`).
+
+## Diagrams
+
+Use a fenced ```mermaid block (flowchart, sequenceDiagram, etc.). It is rendered to SVG in the browser; the server HTML, the markdown twin, feeds and `llms-full.txt` keep the Mermaid source, so crawlers and AI readers get the diagram as text. Keep diagrams small enough to read at 700px wide, and give every node a short label.

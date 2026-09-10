@@ -34,6 +34,23 @@ Doing only one of these is how you end up with a guard that passes the checklist
 
 **3. Disable redirects on the client that talks to customer URLs, and give it a DNS hook.** The webhook client is a separate client instance, not the shared one. Redirects are off at the HTTP-library layer and at the engine layer. The engine's DNS resolver is wrapped so every answer is re-checked against the same policy at connect time. This is the defence against [DNS rebinding](https://en.wikipedia.org/wiki/DNS_rebinding): a host that answers with a public IP during validation and a private IP two seconds later when the socket opens.
 
+The sequence the DNS hook stops:
+
+```mermaid
+sequenceDiagram
+    participant C as Customer
+    participant S as Webhook sender
+    participant D as Customer-controlled DNS
+    C->>S: Register https://hook.example/
+    S->>D: A? hook.example
+    D-->>S: 203.0.113.7 (public)
+    S-->>C: 200 Saved
+    Note over D: Record changes after validation
+    S->>D: A? hook.example (at send time, connect-time hook)
+    D-->>S: 10.0.0.5 (private)
+    S-xS: Hook rejects the answer, no socket opens
+```
+
 **4. Run the check at save time and again at send time.** Save-time validation gives the customer an immediate 400 with a clear reason. Send-time validation covers webhooks registered before the guard existed, and DNS that changed since registration.
 
 ## Why did the error message have to change too?
