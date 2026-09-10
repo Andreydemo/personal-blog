@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Byline } from '@/components/byline'
 import { Comments } from '@/components/comments'
@@ -10,7 +11,8 @@ import { TagList } from '@/components/tag-list'
 import { allPosts } from '@/lib/content'
 import { blogPosting, breadcrumbs } from '@/lib/jsonld'
 import { postMetadata } from '@/lib/metadata'
-import { findPost } from '@/lib/posts'
+import { formatDate, isoDay } from '@/lib/dates'
+import { findPost, relatedPosts } from '@/lib/posts'
 import { site } from '@/lib/site'
 import { showToc } from '@/lib/toc'
 
@@ -33,6 +35,7 @@ export default async function PostPage({ params }: Props) {
   const { slug } = await params
   const post = findPost(allPosts, slug)
   if (!post) notFound()
+  const related = relatedPosts(allPosts, post)
 
   return (
     <article>
@@ -62,8 +65,30 @@ export default async function PostPage({ params }: Props) {
       <div className="prose prose-zinc max-w-none dark:prose-invert">
         <MDXContent code={post.code} />
       </div>
-      <footer className="mt-10">
-        <TagList tags={post.tags} />
+      <footer className="mt-10 space-y-8">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-500">
+          <span>Tagged</span>
+          <TagList tags={post.tags} />
+        </div>
+        {related.length > 0 && (
+          <section aria-labelledby="related-heading">
+            <h2 id="related-heading" className="mb-3 text-lg font-semibold">
+              Related
+            </h2>
+            <ul className="space-y-2">
+              {related.map((item) => (
+                <li key={item.slug} className="flex flex-wrap items-baseline gap-x-3">
+                  <Link href={`/posts/${item.slug}`} className="hover:underline">
+                    {item.title}
+                  </Link>
+                  <time dateTime={isoDay(item.publishedAt)} className="text-sm text-zinc-500">
+                    {formatDate(item.publishedAt)}
+                  </time>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </footer>
       {!post.draft && <Comments />}
     </article>

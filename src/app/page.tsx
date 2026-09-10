@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { JsonLd } from '@/components/json-ld'
 import { PostList } from '@/components/post-list'
 import { allPosts } from '@/lib/content'
@@ -19,6 +20,15 @@ export default function HomePage() {
       </section>
       <h2 className="mb-6 text-xl font-semibold">Latest posts</h2>
       <PostList posts={posts} />
+      <p className="mt-10 text-sm text-zinc-600 dark:text-zinc-400">
+        <Link href="/posts" className="hover:underline">
+          All posts and search
+        </Link>
+        {' · '}
+        <Link href="/tags" className="hover:underline">
+          Browse by tag
+        </Link>
+      </p>
     </>
   )
 }

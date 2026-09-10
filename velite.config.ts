@@ -1,5 +1,6 @@
 import rehypeSlug from 'rehype-slug'
 import { defineCollection, defineConfig, s } from 'velite'
+import { validateTags } from './src/lib/tags'
 
 export const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
 
@@ -32,6 +33,9 @@ export const posts = defineCollection({
           code: 'custom',
           message: `slug "${post.slug}" must be lowercase kebab-case; rename the file`,
         })
+      }
+      for (const message of validateTags(post.tags)) {
+        ctx.addIssue({ code: 'custom', message, path: ['tags'] })
       }
       if (post.updatedAt && post.updatedAt < post.publishedAt) {
         ctx.addIssue({ code: 'custom', message: 'updatedAt must not be before publishedAt' })

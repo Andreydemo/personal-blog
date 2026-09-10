@@ -1,3 +1,4 @@
+import { sectionTags } from './tags'
 export type SiteConfig = {
   name: string
   url: string
@@ -45,7 +46,7 @@ export const site: SiteConfig = {
     { label: 'OpenAlex', href: 'https://openalex.org/A5051435817' },
     { label: 'AD Scientific Index', href: 'https://adscientificindex.com/scientist/andrii-korkoshko/5051663/' },
   ],
-  featuredTags: ['engineering', 'opinions', 'politics'],
+  featuredTags: sectionTags,
   verification: { google: '', bing: '' },
   giscus: {
     repo: 'Andreydemo/personal-blog',

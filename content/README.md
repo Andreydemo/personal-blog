@@ -10,7 +10,7 @@ title: "Short, specific title"                # 1–110 chars
 description: "The answer or thesis in one or two sentences."   # 50–160 chars; shown as the lead paragraph and meta description
 publishedAt: "2026-09-09"
 updatedAt: "2026-09-12"                        # optional, on or after publishedAt
-tags: [engineering, opinions]                  # 1–6, lowercase kebab-case
+tags: [engineering, security]                  # 1–6 from src/lib/tags.ts; at least one section (engineering, ai, opinions, politics)
 draft: false                                   # true = built but unlisted and noindex
 cover: ./cover.jpg                             # optional, relative to this file
 ---

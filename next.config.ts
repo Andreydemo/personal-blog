@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: '/:path*', headers: securityHeaders }]
   },
+  async redirects() {
+    return [
+      { source: '/tags/ai-agents', destination: '/tags/agents', permanent: true },
+      { source: '/tags/llm', destination: '/tags/ai', permanent: true },
+    ]
+  },
   async rewrites() {
     return {
       beforeFiles: [

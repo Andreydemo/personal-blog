@@ -31,3 +31,20 @@ export function findPost<T extends PostMeta>(posts: T[], slug: string): T | unde
 export function lastModified(post: PostMeta): string {
   return post.updatedAt ?? post.publishedAt
 }
+
+/** Published posts sharing tags with `post`, most shared tags first, then newest. */
+export function relatedPosts<T extends PostMeta>(posts: T[], post: PostMeta, limit = 3): T[] {
+  const mine = new Set(post.tags)
+  return publishedPosts(posts)
+    .filter((candidate) => candidate.slug !== post.slug)
+    .map((candidate) => ({ candidate, shared: candidate.tags.filter((tag) => mine.has(tag)).length }))
+    .filter(({ shared }) => shared > 0)
+    .sort(
+      (a, b) =>
+        b.shared - a.shared ||
+        b.candidate.publishedAt.localeCompare(a.candidate.publishedAt) ||
+        a.candidate.slug.localeCompare(b.candidate.slug),
+    )
+    .slice(0, limit)
+    .map(({ candidate }) => candidate)
+}

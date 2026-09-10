@@ -100,6 +100,16 @@ async function run() {
     check(`featured tag /tags/${tag} is 200`, (await fetch(`${BASE}/tags/${tag}`)).status === 200)
   }
 
+  const archive = await fetch(`${BASE}/posts`)
+  const archiveHtml = await archive.text()
+  check('/posts archive is 200 with a search box', archive.ok && archiveHtml.includes('aria-label="Search posts"'))
+  check('header carries a search form', archiveHtml.includes('role="search"'))
+  check('/posts lists the published post', archiveHtml.includes(`/posts/${seed}"`))
+  const tagsPage = await fetch(`${BASE}/tags`)
+  check('/tags is 200 and groups sections', tagsPage.ok && (await tagsPage.text()).includes('Sections'))
+  const redirect = await fetch(`${BASE}/tags/ai-agents`, { redirect: 'manual' })
+  check('old tag URL redirects permanently', redirect.status === 308 && (redirect.headers.get('location') ?? '').endsWith('/tags/agents'))
+
   const longPost = posts.find((post) => post.toc.length >= 5)
   if (longPost) {
     const longHtml = await (await fetch(`${BASE}/posts/${longPost.slug}`)).text()

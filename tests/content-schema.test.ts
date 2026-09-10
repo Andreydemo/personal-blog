@@ -12,6 +12,16 @@ describe('content schema', () => {
     ).toThrow()
   })
 
+  it.each(['unknown-tag', 'no-section'])('fails the content build for the %s fixture', (fixture) => {
+    expect(() =>
+      execFileSync(
+        'node_modules/.bin/velite',
+        ['--config', `tests/fixtures/${fixture}/velite.config.ts`, '--strict', '--silent'],
+        { stdio: 'pipe' },
+      ),
+    ).toThrow()
+  })
+
   it('passes on the real content', () => {
     expect(() =>
       execFileSync('node_modules/.bin/velite', ['--strict', '--silent'], { stdio: 'pipe' }),
