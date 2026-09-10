@@ -14,6 +14,8 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 - [ ] **ORCID**: add the second report, DOI `10.5281/zenodo.22698236` (Works → Add → Add DOI), unless the DataCite import above has picked it up.
 - [ ] **Syndicate the SSRF post**: Hacker News, Lobsters, r/netsec, dev.to (canonical link back).
 - [ ] **Syndicate the agents post** (`/posts/agents-as-internal-services`): Hacker News, Lobsters, dev.to (canonical link back), LinkedIn.
+- [ ] **Syndicate the prompting guide** (`/posts/how-to-prompt-chatgpt-and-claude`): LinkedIn, dev.to (canonical link back), r/ChatGPT and r/ClaudeAI if the mods allow guides.
+- [ ] **Prompting guide, quarterly**: re-check the plan table against https://openai.com/chatgpt/pricing/ and https://claude.com/pricing and bump `updatedAt`.
 - [ ] **Structured data check** after the above: https://validator.schema.org/ on `/posts/hello-world` and `/about`; Google Rich Results Test on a post.
 
 ## Phase 3 — distribution (manual, ongoing)
