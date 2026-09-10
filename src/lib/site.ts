@@ -12,6 +12,8 @@ export type SiteConfig = {
     image: string
   }
   social: { github: string; linkedin: string; x: string }
+  /** Additional identity URLs: included in Person sameAs and listed on About. */
+  profiles: { label: string; href: string }[]
   featuredTags: string[]
   verification: { google: string; bing: string }
   giscus: { repo: string; repoId: string; category: string; categoryId: string }
@@ -36,6 +38,7 @@ export const site: SiteConfig = {
     linkedin: 'https://www.linkedin.com/in/andrii-korkoshko/',
     x: '',
   },
+  profiles: [{ label: 'AD Scientific Index', href: 'https://adscientificindex.com/scientist/andrii-korkoshko/5051663/' }],
   featuredTags: ['engineering', 'opinions', 'politics'],
   verification: { google: '', bing: '' },
   giscus: {
@@ -72,7 +75,10 @@ export function personId(config: SiteConfig): string {
 }
 
 export function sameAs(config: SiteConfig): string[] {
-  return Object.values(config.social).filter((url) => url.length > 0)
+  return [
+    ...Object.values(config.social).filter((url) => url.length > 0),
+    ...config.profiles.map((p) => p.href),
+  ]
 }
 
 /** "/posts/x" → "https://andrii.korkoshko.com/posts/x" */

@@ -15,6 +15,7 @@ export default function AboutPage() {
     { label: 'GitHub', href: site.social.github },
     { label: 'LinkedIn', href: site.social.linkedin },
     { label: 'X', href: site.social.x },
+    ...site.profiles,
   ].filter((link) => link.href.length > 0)
   const role = [site.author.jobTitle, site.author.employer].filter(Boolean).join(' at ')
 

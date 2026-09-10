@@ -18,9 +18,14 @@ describe('person', () => {
     expect(p['@id']).toBe(PERSON_ID)
     expect(p.url).toBe('https://andrii.korkoshko.com/about')
     expect(p.image).toBe('https://andrii.korkoshko.com/images/me.jpg')
-    expect(p.sameAs).toEqual(['https://github.com/x', 'https://x.com/x'])
+    expect(p.sameAs).toEqual([
+      'https://github.com/x',
+      'https://x.com/x',
+      'https://adscientificindex.com/scientist/andrii-korkoshko/5051663/',
+    ])
     expect(p.jobTitle).toBe('Engineer')
     expect(p.worksFor).toEqual({ '@type': 'Organization', name: 'Acme' })
+    expect(p.description).toBe(site.author.bio)
   })
 
   it('omits empty optional fields', () => {
@@ -28,6 +33,9 @@ describe('person', () => {
     expect(p).not.toHaveProperty('jobTitle')
     expect(p).not.toHaveProperty('worksFor')
     expect(p).not.toHaveProperty('image')
+
+    const empty = person({ ...site, social: { github: '', linkedin: '', x: '' }, profiles: [] })
+    expect(empty.sameAs).toEqual([])
   })
 })
 
@@ -44,8 +52,18 @@ describe('webSite', () => {
     const w = webSite(site)
     expect(w['@type']).toBe('WebSite')
     expect(w.url).toBe('https://andrii.korkoshko.com')
-    expect(w.author).toEqual({ '@id': PERSON_ID })
-    expect(w.publisher).toEqual({ '@id': PERSON_ID })
+    expect(w.author).toMatchObject({
+      '@type': 'Person',
+      '@id': PERSON_ID,
+      name: 'Andrii Korkoshko',
+      url: 'https://andrii.korkoshko.com/about',
+    })
+    expect(w.publisher).toMatchObject({
+      '@type': 'Person',
+      '@id': PERSON_ID,
+      name: 'Andrii Korkoshko',
+      url: 'https://andrii.korkoshko.com/about',
+    })
   })
 })
 
@@ -70,7 +88,18 @@ describe('blogPosting', () => {
     expect(b.keywords).toEqual(['a', 'b'])
     expect(b.wordCount).toBe(321)
     expect(b.image).toBe('https://andrii.korkoshko.com/posts/hello/og')
-    expect(b.author).toEqual({ '@id': PERSON_ID })
+    expect(b.author).toMatchObject({
+      '@type': 'Person',
+      '@id': PERSON_ID,
+      name: 'Andrii Korkoshko',
+      url: 'https://andrii.korkoshko.com/about',
+    })
+    expect(b.publisher).toMatchObject({
+      '@type': 'Person',
+      '@id': PERSON_ID,
+      name: 'Andrii Korkoshko',
+      url: 'https://andrii.korkoshko.com/about',
+    })
     expect(b.inLanguage).toBe('en')
   })
 

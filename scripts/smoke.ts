@@ -1,9 +1,10 @@
 import { spawn } from 'node:child_process'
 import { readFileSync } from 'node:fs'
+import { site } from '../src/lib/site'
 
 const PORT = 3999
 const BASE = `http://localhost:${PORT}`
-const SITEMAP_URL = 'https://andrii.korkoshko.com/sitemap.xml'
+const SITEMAP_URL = `${site.url}/sitemap.xml`
 
 type Post = { slug: string; draft: boolean }
 type JsonLd = { '@type'?: string; '@id'?: string; author?: { '@id'?: string } }
@@ -66,13 +67,15 @@ async function run() {
   check('Accept: text/markdown returns markdown', contentType(negotiated).startsWith('text/markdown'), contentType(negotiated))
   const twinIgnoringAccept = await fetch(`${BASE}/posts/${seed}.md`, { headers: { accept: 'text/html' } })
   check('.md twin ignores Accept', contentType(twinIgnoringAccept).startsWith('text/markdown'))
+  const twinWithMarkdownAccept = await fetch(`${BASE}/posts/${seed}.md`, { headers: { accept: 'text/markdown' } })
+  check('.md twin with Accept: text/markdown returns markdown', contentType(twinWithMarkdownAccept).startsWith('text/markdown'))
 
   const page = await fetch(`${BASE}/posts/${seed}`, { headers: { accept: 'text/html' } })
   const html = await page.text()
   check('Accept: text/html returns html', contentType(page).startsWith('text/html'), contentType(page))
   check(
     'post links its markdown alternate',
-    html.includes('type="text/markdown"') && html.includes(`href="https://andrii.korkoshko.com/posts/${seed}.md"`),
+    html.includes('type="text/markdown"') && html.includes(`href="${site.url}/posts/${seed}.md"`),
   )
 
   const article = jsonLdBlocks(html).find((block) => block['@type'] === 'BlogPosting')
@@ -92,6 +95,10 @@ async function run() {
   check('atom.xml has the seed post', atom.includes('<entry>') && atom.includes(`/posts/${seed}`))
   const json = JSON.parse(await (await fetch(`${BASE}/feed.json`)).text()) as { items: { url: string }[] }
   check('feed.json has the seed post', json.items.some((item) => item.url.endsWith(`/posts/${seed}`)))
+
+  for (const tag of site.featuredTags) {
+    check(`featured tag /tags/${tag} is 200`, (await fetch(`${BASE}/tags/${tag}`)).status === 200)
+  }
 
   check('unknown post is 404', (await fetch(`${BASE}/posts/definitely-missing`)).status === 404)
   check('unknown twin is 404', (await fetch(`${BASE}/posts/definitely-missing.md`)).status === 404)

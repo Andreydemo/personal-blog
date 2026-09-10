@@ -1,6 +1,7 @@
 import type {
   BlogPosting,
   BreadcrumbList,
+  Person,
   PersonLeaf,
   ProfilePage,
   WebSite,
@@ -22,7 +23,18 @@ function personNode(site: SiteConfig): PersonLeaf {
     ...(author.image ? { image: absoluteUrl(site, author.image) } : {}),
     ...(author.jobTitle ? { jobTitle: author.jobTitle } : {}),
     ...(author.employer ? { worksFor: { '@type': 'Organization', name: author.employer } } : {}),
+    ...(author.bio ? { description: author.bio } : {}),
     sameAs: sameAs(site),
+  }
+}
+
+/** Compact Person reference: same @id as the About node, plus the fields per-page validators need. */
+function personRef(site: SiteConfig): Person {
+  return {
+    '@type': 'Person',
+    '@id': personId(site),
+    name: site.author.name,
+    url: absoluteUrl(site, '/about'),
   }
 }
 
@@ -42,8 +54,8 @@ export function webSite(site: SiteConfig): WithContext<WebSite> {
     url: site.url,
     description: site.description,
     inLanguage: 'en',
-    author: { '@id': personId(site) },
-    publisher: { '@id': personId(site) },
+    author: personRef(site),
+    publisher: personRef(site),
   }
 }
 
@@ -66,8 +78,8 @@ export function blogPosting(site: SiteConfig, post: PostMeta): WithContext<BlogP
     wordCount: post.metadata.wordCount,
     image: `${url}/og`,
     inLanguage: 'en',
-    author: { '@id': personId(site) },
-    publisher: { '@id': personId(site) },
+    author: personRef(site),
+    publisher: personRef(site),
   }
 }
 
