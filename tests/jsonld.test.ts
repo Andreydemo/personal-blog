@@ -18,11 +18,7 @@ describe('person', () => {
     expect(p['@id']).toBe(PERSON_ID)
     expect(p.url).toBe('https://andrii.korkoshko.com/about')
     expect(p.image).toBe('https://andrii.korkoshko.com/images/me.jpg')
-    expect(p.sameAs).toEqual([
-      'https://github.com/x',
-      'https://x.com/x',
-      'https://adscientificindex.com/scientist/andrii-korkoshko/5051663/',
-    ])
+    expect(p.sameAs).toEqual(['https://github.com/x', 'https://x.com/x', ...base.profiles.map((profile) => profile.href)])
     expect(p.jobTitle).toBe('Engineer')
     expect(p.worksFor).toEqual({ '@type': 'Organization', name: 'Acme' })
     expect(p.description).toBe(site.author.bio)

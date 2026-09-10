@@ -29,8 +29,8 @@ export const site: SiteConfig = {
   author: {
     name: 'Andrii Korkoshko',
     bio: 'Software engineer. I write about building systems, working in tech, and whatever else is worth the words.',
-    jobTitle: '',
-    employer: '',
+    jobTitle: 'Member of Technical Staff',
+    employer: 'Starbridge',
     image: '',
   },
   social: {
@@ -38,7 +38,13 @@ export const site: SiteConfig = {
     linkedin: 'https://www.linkedin.com/in/andrii-korkoshko/',
     x: '',
   },
-  profiles: [{ label: 'AD Scientific Index', href: 'https://adscientificindex.com/scientist/andrii-korkoshko/5051663/' }],
+  profiles: [
+    { label: 'ORCID', href: 'https://orcid.org/0000-0002-4567-5584' },
+    { label: 'Google Scholar', href: 'https://scholar.google.com/citations?user=dPLg93QAAAAJ' },
+    { label: 'Semantic Scholar', href: 'https://www.semanticscholar.org/author/73742191' },
+    { label: 'OpenAlex', href: 'https://openalex.org/A5051435817' },
+    { label: 'AD Scientific Index', href: 'https://adscientificindex.com/scientist/andrii-korkoshko/5051663/' },
+  ],
   featuredTags: ['engineering', 'opinions', 'politics'],
   verification: { google: '', bing: '' },
   giscus: {
