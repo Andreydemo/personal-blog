@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Byline } from '@/components/byline'
+import { Comments } from '@/components/comments'
 import { JsonLd } from '@/components/json-ld'
 import { MDXContent } from '@/components/mdx-content'
 import { TagList } from '@/components/tag-list'
@@ -61,6 +62,7 @@ export default async function PostPage({ params }: Props) {
       <footer className="mt-10">
         <TagList tags={post.tags} />
       </footer>
+      {!post.draft && <Comments />}
     </article>
   )
 }

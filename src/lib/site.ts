@@ -38,7 +38,12 @@ export const site: SiteConfig = {
   },
   featuredTags: ['engineering', 'opinions', 'politics'],
   verification: { google: '', bing: '' },
-  giscus: { repo: '', repoId: '', category: '', categoryId: '' },
+  giscus: {
+    repo: 'Andreydemo/personal-blog',
+    repoId: 'R_kgDOUT_xJA',
+    category: 'Announcements',
+    categoryId: 'DIC_kwDOUT_xJM4DFQ2L',
+  },
   crawlers: [
     'Googlebot',
     'Bingbot',
