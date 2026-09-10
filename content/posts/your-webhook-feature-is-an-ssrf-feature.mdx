@@ -140,7 +140,7 @@ HttpClient(OkHttp) {
 
 ## Companion code and technical report
 
-The guard is published as an open-source Kotlin/JVM library, [ssrf-guard](https://github.com/Andreydemo/ssrf-guard) (Apache-2.0): the URL policy, the address classifier including the IPv6 transition forms and the RFC 8215 local-use NAT64 prefix, the public-only resolver, and an OkHttp `Dns` adapter, with the test vectors below as its test suite. A [technical report](https://github.com/Andreydemo/ssrf-guard/blob/main/docs/report.pdf) with the threat model, design and evaluation ships with each release.
+The guard is published as an open-source Kotlin/JVM library, [ssrf-guard](https://github.com/Andreydemo/ssrf-guard) (Apache-2.0, [DOI 10.5281/zenodo.22697765](https://doi.org/10.5281/zenodo.22697765)): the URL policy, the address classifier including the IPv6 transition forms and the RFC 8215 local-use NAT64 prefix, the public-only resolver, and an OkHttp `Dns` adapter, with the test vectors below as its test suite. A [technical report](https://doi.org/10.5281/zenodo.22698040) with the threat model, design and evaluation is published on Zenodo (DOI 10.5281/zenodo.22698040) and ships with each release.
 
 ## A test set you can reuse
 
@@ -173,6 +173,8 @@ Should be accepted: a public HTTPS endpoint on port 443. Then confirm the failur
 
 Korkoshko, A. (2026, September 10). *Your webhook feature is an SSRF feature until proven otherwise.* andrii.korkoshko.com. https://andrii.korkoshko.com/posts/your-webhook-feature-is-an-ssrf-feature
 
+Technical report: Korkoshko, A. (2026). *Closing SSRF in customer-configurable webhooks: a four-layer guard with connect-time DNS pinning* (Technical report, v1.0). Zenodo. https://doi.org/10.5281/zenodo.22698040
+
 Companion software: Korkoshko, A. (2026). *ssrf-guard: an SSRF guard for customer-supplied webhook URLs* (v0.1.0). Zenodo. https://doi.org/10.5281/zenodo.22697765
 
 ```bibtex
@@ -183,6 +185,17 @@ Companion software: Korkoshko, A. (2026). *ssrf-guard: an SSRF guard for custome
   month        = sep,
   howpublished = {\url{https://andrii.korkoshko.com/posts/your-webhook-feature-is-an-ssrf-feature}},
   note         = {Blog post}
+}
+
+@techreport{korkoshko2026ssrfreport,
+  author      = {Korkoshko, Andrii},
+  title       = {Closing {SSRF} in customer-configurable webhooks: a four-layer guard with connect-time {DNS} pinning},
+  year        = {2026},
+  month       = sep,
+  institution = {Zenodo},
+  type        = {Technical report},
+  number      = {v1.0},
+  doi         = {10.5281/zenodo.22698040}
 }
 
 @software{korkoshko2026ssrfguard,
