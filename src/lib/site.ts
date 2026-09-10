@@ -33,7 +33,7 @@ export const site: SiteConfig = {
   },
   social: {
     github: 'https://github.com/Andreydemo',
-    linkedin: '',
+    linkedin: 'https://www.linkedin.com/in/andrii-korkoshko/',
     x: '',
   },
   featuredTags: ['engineering', 'opinions', 'politics'],
