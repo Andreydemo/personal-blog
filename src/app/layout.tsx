@@ -13,6 +13,10 @@ export const metadata: Metadata = {
     template: `%s | ${site.name}`,
   },
   description: site.description,
+  verification: {
+    ...(site.verification.google ? { google: site.verification.google } : {}),
+    ...(site.verification.bing ? { other: { 'msvalidate.01': site.verification.bing } } : {}),
+  },
 }
 
 export default function RootLayout({ children }: { children: ReactNode }) {
