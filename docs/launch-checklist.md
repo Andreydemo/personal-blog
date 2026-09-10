@@ -34,6 +34,7 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 - [ ] `markdownTwin`: quote YAML tag values; the schema's kebab-case rule keeps them safe today.
 - [ ] Velite fixture: add cases for a non-kebab slug and `updatedAt < publishedAt`.
 - [ ] IndexNow script: also wait for *modified* URLs to show the new `dateModified` before pinging.
+- [ ] Mobile layout: check a long post at 375px with real device emulation (headless Chrome on macOS floors the window at ~500px, so screenshots at 400px are not evidence either way); the header nav may need to wrap.
 
 ## Later phases (each gets its own spec)
 

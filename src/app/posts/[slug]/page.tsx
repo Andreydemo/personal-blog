@@ -5,12 +5,14 @@ import { Byline } from '@/components/byline'
 import { Comments } from '@/components/comments'
 import { JsonLd } from '@/components/json-ld'
 import { MDXContent } from '@/components/mdx-content'
+import { TableOfContents } from '@/components/table-of-contents'
 import { TagList } from '@/components/tag-list'
 import { allPosts } from '@/lib/content'
 import { blogPosting, breadcrumbs } from '@/lib/jsonld'
 import { postMetadata } from '@/lib/metadata'
 import { findPost } from '@/lib/posts'
 import { site } from '@/lib/site'
+import { showToc } from '@/lib/toc'
 
 type Props = { params: Promise<{ slug: string }> }
 
@@ -56,6 +58,7 @@ export default async function PostPage({ params }: Props) {
           />
         )}
       </header>
+      {showToc(post.toc) && <TableOfContents toc={post.toc} />}
       <div className="prose prose-zinc max-w-none dark:prose-invert">
         <MDXContent code={post.code} />
       </div>

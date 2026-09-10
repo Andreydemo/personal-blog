@@ -6,7 +6,7 @@ const PORT = 3999
 const BASE = `http://localhost:${PORT}`
 const SITEMAP_URL = `${site.url}/sitemap.xml`
 
-type Post = { slug: string; draft: boolean; raw: string }
+type Post = { slug: string; draft: boolean; raw: string; toc: { title: string; url: string }[] }
 type JsonLd = { '@type'?: string; '@id'?: string; author?: { '@id'?: string } }
 
 const posts: Post[] = JSON.parse(readFileSync('.velite/posts.json', 'utf8'))
@@ -100,6 +100,13 @@ async function run() {
     check(`featured tag /tags/${tag} is 200`, (await fetch(`${BASE}/tags/${tag}`)).status === 200)
   }
 
+  const longPost = posts.find((post) => post.toc.length >= 5)
+  if (longPost) {
+    const longHtml = await (await fetch(`${BASE}/posts/${longPost.slug}`)).text()
+    const firstId = longPost.toc[0].url.replace(/^#/, '')
+    check(`contents nav is rendered on /posts/${longPost.slug}`, longHtml.includes('aria-label="Contents"'))
+    check(`headings carry ids on /posts/${longPost.slug}`, longHtml.includes(`id="${firstId}"`), firstId)
+  }
   const diagramPost = posts.find((post) => post.raw.includes('```mermaid'))
   if (diagramPost) {
     const diagramHtml = await (await fetch(`${BASE}/posts/${diagramPost.slug}`)).text()

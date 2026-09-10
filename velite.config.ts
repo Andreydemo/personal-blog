@@ -1,3 +1,4 @@
+import rehypeSlug from 'rehype-slug'
 import { defineCollection, defineConfig, s } from 'velite'
 
 export const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/
@@ -21,8 +22,8 @@ export const posts = defineCollection({
       metadata: s.metadata(),
       raw: s.raw(),
       html: s.markdown(),
-      code: s.mdx(),
-      toc: s.toc(),
+      code: s.mdx({ rehypePlugins: [rehypeSlug] }),
+      toc: s.toc({ maxDepth: 2 }),
     })
     .transform(({ path, ...data }) => ({ ...data, slug: path.replace(/^posts\//, '') }))
     .superRefine((post, ctx) => {
