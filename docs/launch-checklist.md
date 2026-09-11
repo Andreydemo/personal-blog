@@ -27,7 +27,7 @@ Status as of 2026-09-10 (evening). Phases 1–2 of `docs/superpowers/specs/2026-
 ## Phase 3 — distribution (manual, ongoing; routine and targets in `docs/traffic-plan.md`)
 
 - [ ] Weekly 10-minute check: Search Console Pages and Queries, Vercel Analytics referrers (see the plan).
-- [ ] **Analytics**: Vercel Web Analytics is live (project → Analytics tab; 30-day window, 50k events/month on Hobby). Decided 2026-09-10: add Umami Cloud (free, 100k events, 6-month history) later, around month three, when comparing posts over time matters; needs a website ID from a free account.
+- [ ] **Analytics**: Vercel Web Analytics is live (project → Analytics tab; 30-day window, 50k events/month on Hobby). Verified 2026-09-11 with a browser probe: the script is served from a hashed path (`/37bedbd8d4a2d760/script.js`, not `/_vercel/insights/`, which is why greps for "insights" find nothing) and page-view POSTs to `/37bedbd8d4a2d760/view` return 200. The dashboard shows "Get Started" until the first accepted events are processed; ad blockers on your own browser can hide your own visits. Decided 2026-09-10: add Umami Cloud (free, 100k events, 6-month history) later, around month three, when comparing posts over time matters; needs a website ID from a free account.
 - [ ] Link the site from the GitHub profile README, the LinkedIn website field, and any other profile bios.
 - [ ] When syndicating a post to dev.to / Hashnode / Medium, set the canonical URL to the post on this site.
 - [ ] Share new posts on LinkedIn and X; the markdown twin (`/posts/<slug>.md`) is handy for pasting into AI tools.
