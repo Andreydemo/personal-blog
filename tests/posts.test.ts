@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { allTags, findPost, lastModified, postsByTag, publishedPosts, sortNewestFirst } from '@/lib/posts'
+import { allTags, findPost, lastModified, postsByTag, publishedPosts, readingMinutes, sortNewestFirst } from '@/lib/posts'
 import { makePost } from './helpers'
 
 const older = makePost({ slug: 'older', publishedAt: '2026-01-01T00:00:00.000Z', tags: ['engineering'] })
@@ -56,5 +56,12 @@ describe('lastModified', () => {
     expect(
       lastModified(makePost({ publishedAt: '2026-01-01T00:00:00.000Z', updatedAt: '2026-02-01T00:00:00.000Z' })),
     ).toBe('2026-02-01T00:00:00.000Z')
+  })
+})
+
+describe('readingMinutes', () => {
+  it('rounds to whole minutes and never reports zero', () => {
+    expect(readingMinutes(makePost({ metadata: { readingTime: 0.2, wordCount: 40 } }))).toBe(1)
+    expect(readingMinutes(makePost({ metadata: { readingTime: 8.6, wordCount: 1700 } }))).toBe(9)
   })
 })

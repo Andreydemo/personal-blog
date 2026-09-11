@@ -20,7 +20,7 @@ export default function AboutPage() {
   const role = [site.author.jobTitle, site.author.employer].filter(Boolean).join(' at ')
 
   return (
-    <article className="prose prose-zinc max-w-none dark:prose-invert">
+    <article className="prose prose-zinc max-w-none prose-code:before:content-none prose-code:after:content-none dark:prose-invert">
       <JsonLd data={person(site)} />
       <JsonLd data={profilePage(site)} />
       <h1>{site.author.name}</h1>

@@ -1,10 +1,11 @@
 import Link from 'next/link'
 import { formatDate, isoDay } from '@/lib/dates'
+import { readingMinutes } from '@/lib/posts'
 import { site } from '@/lib/site'
 import type { PostMeta } from '@/lib/types'
 
 export function Byline({ post }: { post: PostMeta }) {
-  const minutes = Math.max(1, Math.round(post.metadata.readingTime))
+  const minutes = readingMinutes(post)
   return (
     <p className="text-sm text-zinc-600 dark:text-zinc-400">
       <Link href="/about" rel="author" className="hover:underline">

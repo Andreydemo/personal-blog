@@ -105,6 +105,14 @@ async function run() {
   check('/posts archive is 200 with a search box', archive.ok && archiveHtml.includes('aria-label="Search posts"'))
   check('header carries a search form', archiveHtml.includes('role="search"'))
   check('/posts lists the published post', archiveHtml.includes(`/posts/${seed}"`))
+  check('nav links to the archive', archiveHtml.includes('href="/posts"') && archiveHtml.includes('>Posts<'))
+  check('skip link is present', archiveHtml.includes('href="#main"'))
+  const codePost = posts.find((post) => /```(?!mermaid)[a-z]/.test(post.raw))
+  if (codePost) {
+    const codeHtml = await (await fetch(`${BASE}/posts/${codePost.slug}`)).text()
+    check(`code blocks have a copy button on /posts/${codePost.slug}`, codeHtml.includes('aria-label="Copy code"'))
+    check(`headings have anchor links on /posts/${codePost.slug}`, codeHtml.includes('aria-label="Link to this section"'))
+  }
   const tagsPage = await fetch(`${BASE}/tags`)
   check('/tags is 200 and groups sections', tagsPage.ok && (await tagsPage.text()).includes('Sections'))
   const redirect = await fetch(`${BASE}/tags/ai-agents`, { redirect: 'manual' })

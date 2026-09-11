@@ -62,7 +62,7 @@ export default async function PostPage({ params }: Props) {
         )}
       </header>
       {showToc(post.toc) && <TableOfContents toc={post.toc} />}
-      <div className="prose prose-zinc max-w-none dark:prose-invert">
+      <div className="prose prose-zinc max-w-none prose-code:before:content-none prose-code:after:content-none dark:prose-invert">
         <MDXContent code={post.code} />
       </div>
       <footer className="mt-10 space-y-8">

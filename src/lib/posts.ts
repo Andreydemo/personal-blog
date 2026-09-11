@@ -48,3 +48,8 @@ export function relatedPosts<T extends PostMeta>(posts: T[], post: PostMeta, lim
     .slice(0, limit)
     .map(({ candidate }) => candidate)
 }
+
+/** Reading time in whole minutes, never below one. */
+export function readingMinutes(post: PostMeta): number {
+  return Math.max(1, Math.round(post.metadata.readingTime))
+}

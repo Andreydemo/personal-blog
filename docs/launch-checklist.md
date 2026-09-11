@@ -30,7 +30,7 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 
 - [ ] Bump `actions/checkout`, `actions/setup-node` and `pnpm/action-setup` from v4 to v5 in both workflows (GitHub flags v4 as Node 20-based). Small PR; CI validates the tags.
 - [ ] Bump `@types/node` to `^22` to match Node 22 and vitest's peer range.
-- [ ] Footer: use `rel="alternate"` (not `rel="me"`) on the RSS link.
+- [x] Footer: use `rel="alternate"` (not `rel="me"`) on the RSS link.
 - [ ] `markdownTwin`: quote YAML tag values; the schema's kebab-case rule keeps them safe today.
 - [ ] Velite fixture: add cases for a non-kebab slug and `updatedAt < publishedAt`.
 - [ ] IndexNow script: also wait for *modified* URLs to show the new `dateModified` before pinging.
