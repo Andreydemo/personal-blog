@@ -15,10 +15,11 @@ const entries = sitemapEntries(site, [older, draft, newer])
 const urls = entries.map((e) => e.url)
 
 describe('sitemapEntries', () => {
-  it('lists home, about, tags index, tag pages and published posts', () => {
+  it('lists home, about, archive, tags index, tag pages and published posts', () => {
     expect(urls).toEqual([
       'https://andrii.korkoshko.com',
       'https://andrii.korkoshko.com/about',
+      'https://andrii.korkoshko.com/posts',
       'https://andrii.korkoshko.com/tags',
       'https://andrii.korkoshko.com/tags/engineering',
       'https://andrii.korkoshko.com/tags/opinions',

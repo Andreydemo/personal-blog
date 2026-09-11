@@ -63,13 +63,13 @@ export function PostSearch({ posts, tags }: { posts: SearchablePost[]; tags: Tag
           </li>
         ))}
       </ul>
-      <p className="text-sm text-zinc-500" aria-live="polite">
+      <p className="text-sm text-zinc-600 dark:text-zinc-400" aria-live="polite">
         {results.length === posts.length
           ? `${posts.length} posts`
           : `${results.length} of ${posts.length} posts${tag ? ` in ${tagLabel(tag)}` : ''}`}
       </p>
       {results.length === 0 ? (
-        <p className="text-zinc-500">No posts match. Try fewer words or clear the tag.</p>
+        <p className="text-zinc-600 dark:text-zinc-400">No posts match. Try fewer words or clear the tag.</p>
       ) : (
         <ul className="space-y-10">
           {results.map((post) => (

@@ -66,7 +66,7 @@ export default async function PostPage({ params }: Props) {
         <MDXContent code={post.code} />
       </div>
       <footer className="mt-10 space-y-8">
-        <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-500">
+        <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-400">
           <span>Tagged</span>
           <TagList tags={post.tags} />
         </div>
@@ -81,7 +81,7 @@ export default async function PostPage({ params }: Props) {
                   <Link href={`/posts/${item.slug}`} className="hover:underline">
                     {item.title}
                   </Link>
-                  <time dateTime={isoDay(item.publishedAt)} className="text-sm text-zinc-500">
+                  <time dateTime={isoDay(item.publishedAt)} className="text-sm text-zinc-600 dark:text-zinc-400">
                     {formatDate(item.publishedAt)}
                   </time>
                 </li>

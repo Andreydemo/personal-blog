@@ -40,7 +40,7 @@ export default async function TagPage({ params }: Props) {
             {info.kind === 'section' ? 'Section' : 'Topic'}: {info.description}
           </p>
         )}
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-zinc-600 dark:text-zinc-400">
           {posts.length === 1 ? '1 post' : `${posts.length} posts`} in {tagLabel(tag)} ·{' '}
           <Link href="/tags" className="hover:underline">
             All tags

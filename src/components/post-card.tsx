@@ -13,7 +13,7 @@ export function PostCard({ post }: { post: PostMeta }) {
         </Link>
       </h3>
       <p className="text-zinc-600 dark:text-zinc-400">{post.description}</p>
-      <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-500">
+      <div className="flex flex-wrap items-center gap-3 text-sm text-zinc-600 dark:text-zinc-400">
         <time dateTime={isoDay(post.publishedAt)}>{formatDate(post.publishedAt)}</time>
         <span>{readingMinutes(post)} min read</span>
         <TagList tags={post.tags} />

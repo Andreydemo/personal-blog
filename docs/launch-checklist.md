@@ -1,6 +1,12 @@
 # Launch checklist and open items
 
-Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-personal-blog-design.md` are live at https://andrii.korkoshko.com. Tick items off here as they are done.
+Status as of 2026-09-10 (evening). Phases 1–2 of `docs/superpowers/specs/2026-09-09-personal-blog-design.md` are live at https://andrii.korkoshko.com. Tick items off here as they are done. Growth work (search, AI engines, syndication) is planned in `docs/traffic-plan.md`; what was built and when is in `docs/journal/`.
+
+## Shipped since launch (2026-09-10)
+
+- Three posts: SSRF (with the ssrf-guard library and Zenodo report DOI 10.5281/zenodo.22698040), agents as internal services (Zenodo report DOI 10.5281/zenodo.22698236), the prompting guide.
+- Contents block with heading anchors on long posts; tag registry with sections and topics; `/posts` archive with search; `/tags` index with descriptions; Related posts; nav with Posts, active state and `/` search shortcut; skip link; code-block Copy buttons; reading time on cards; footer links.
+- Accessibility: contrast and touch-target fixes (Lighthouse a11y 93 → 100); archive page in the sitemap; `@types/node` 22; schema fixtures for unknown tags, missing section, non-kebab slug and `updatedAt < publishedAt`; markdown twins quote YAML tag values.
 
 ## Do now (dashboards, your logins)
 
@@ -16,10 +22,11 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 - [ ] **Syndicate the agents post** (`/posts/agents-as-internal-services`): Hacker News, Lobsters, dev.to (canonical link back), LinkedIn.
 - [ ] **Syndicate the prompting guide** (`/posts/how-to-prompt-chatgpt-and-claude`): LinkedIn, dev.to (canonical link back), r/ChatGPT and r/ClaudeAI if the mods allow guides.
 - [ ] **Prompting guide, quarterly**: re-check the plan table against https://openai.com/chatgpt/pricing/ and https://claude.com/pricing and bump `updatedAt`.
-- [ ] **Structured data check** after the above: https://validator.schema.org/ on `/posts/hello-world` and `/about`; Google Rich Results Test on a post.
+- [ ] **Structured data check** (Lighthouse SEO is 100; this is the rich-results view): https://validator.schema.org/ on `/posts/hello-world` and `/about`; Google Rich Results Test on a post.
 
-## Phase 3 — distribution (manual, ongoing)
+## Phase 3 — distribution (manual, ongoing; routine and targets in `docs/traffic-plan.md`)
 
+- [ ] Weekly 10-minute check: Search Console Pages and Queries, Vercel Analytics referrers (see the plan).
 - [ ] Link the site from the GitHub profile README, the LinkedIn website field, and any other profile bios.
 - [ ] When syndicating a post to dev.to / Hashnode / Medium, set the canonical URL to the post on this site.
 - [ ] Share new posts on LinkedIn and X; the markdown twin (`/posts/<slug>.md`) is handy for pasting into AI tools.
@@ -29,10 +36,10 @@ Status as of 2026-09-10. Phases 1–2 of `docs/superpowers/specs/2026-09-09-pers
 ## Deferred technical items (none block anything)
 
 - [ ] Bump `actions/checkout`, `actions/setup-node` and `pnpm/action-setup` from v4 to v5 in both workflows (GitHub flags v4 as Node 20-based). Small PR; CI validates the tags.
-- [ ] Bump `@types/node` to `^22` to match Node 22 and vitest's peer range.
+- [x] Bump `@types/node` to `^22` to match Node 22 and vitest's peer range.
 - [x] Footer: use `rel="alternate"` (not `rel="me"`) on the RSS link.
-- [ ] `markdownTwin`: quote YAML tag values; the schema's kebab-case rule keeps them safe today.
-- [ ] Velite fixture: add cases for a non-kebab slug and `updatedAt < publishedAt`.
+- [x] `markdownTwin`: quote YAML tag values.
+- [x] Velite fixture: add cases for a non-kebab slug and `updatedAt < publishedAt`.
 - [ ] IndexNow script: also wait for *modified* URLs to show the new `dateModified` before pinging.
 - [ ] Mobile layout: check a long post at 375px with real device emulation (headless Chrome on macOS floors the window at ~500px, so screenshots at 400px are not evidence either way); the header nav may need to wrap.
 

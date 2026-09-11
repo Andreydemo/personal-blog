@@ -12,7 +12,7 @@ describe('content schema', () => {
     ).toThrow()
   })
 
-  it.each(['unknown-tag', 'no-section'])('fails the content build for the %s fixture', (fixture) => {
+  it.each(['unknown-tag', 'no-section', 'bad-slug', 'bad-dates'])('fails the content build for the %s fixture', (fixture) => {
     expect(() =>
       execFileSync(
         'node_modules/.bin/velite',

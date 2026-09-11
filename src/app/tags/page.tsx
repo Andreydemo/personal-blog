@@ -22,7 +22,7 @@ function TagGroup({ title, tags, counts }: { title: string; tags: TagInfo[]; cou
               #{t.tag}
             </Link>
             <span className="text-zinc-600 dark:text-zinc-400">{t.description}</span>
-            <span className="text-sm text-zinc-500">{counts.get(t.tag) ?? 0}</span>
+            <span className="text-sm text-zinc-600 dark:text-zinc-400">{counts.get(t.tag) ?? 0}</span>
           </li>
         ))}
       </ul>
@@ -39,7 +39,7 @@ export default function TagsPage() {
       <h1 className="text-3xl font-bold">Tags</h1>
       <TagGroup title="Sections" tags={sections} counts={counts} />
       <TagGroup title="Topics" tags={topics} counts={counts} />
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-zinc-600 dark:text-zinc-400">
         Every post carries one section and up to a few topics. <Link href="/posts" className="underline hover:no-underline">Search all posts</Link>.
       </p>
     </div>

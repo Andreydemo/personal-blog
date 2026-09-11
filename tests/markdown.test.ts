@@ -22,7 +22,7 @@ describe('markdownTwin', () => {
     expect(out).toContain('author_url: https://andrii.korkoshko.com/about')
     expect(out).toContain('canonical: https://andrii.korkoshko.com/posts/hello')
     expect(out).toContain('published: 2026-09-09')
-    expect(out).toContain('tags: [a, b]')
+    expect(out).toContain('tags: ["a", "b"]')
   })
 
   it('omits updated when there is no updatedAt', () => {

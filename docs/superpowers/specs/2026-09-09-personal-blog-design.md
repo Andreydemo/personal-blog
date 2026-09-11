@@ -371,6 +371,8 @@ Results test on a post, confirm Search Console and Bing see the sitemap.
 
 ## 11. Phases and deliverables
 
+**Status (2026-09-10):** phases 1 and 2 shipped on 2026-09-09/10 and are live. Extras shipped after the plan, not in the phases below: a contents block on long posts, a tag registry (sections + topics) enforced by the schema, a `/posts` archive with search, `/tags` with descriptions, Related posts, and an accessibility pass; see `docs/journal/`. Phase 3 is in progress as a routine (`docs/traffic-plan.md`, `docs/launch-checklist.md`). Phases 4 and 5 are not started and need their own specs.
+
 **Phase 1 — live site.** Scaffold, Velite schema, layout and typography,
 home, post page, tags, About with Person JSON-LD, two seed posts, GitHub repo,
 Vercel project, DNS, redirects, analytics, CI. Done when
@@ -385,7 +387,7 @@ suite passes in CI and on production.
 **Phase 3 — distribution.** Site linked from GitHub profile README, LinkedIn
 website field and X bio; syndication procedure for dev.to/Hashnode/Medium with
 canonical links; a monthly AI-citation check documented in
-`docs/visibility-checklist.md` (ask ChatGPT, Perplexity and Claude "who is
+`docs/launch-checklist.md` (originally planned as `docs/visibility-checklist.md`), with the routine and targets in `docs/traffic-plan.md` (ask ChatGPT, Perplexity and Claude "who is
 Andrii Korkoshko" and two topic queries; record which sources are cited).
 
 The implementation plan written from this spec covers phases 1 and 2.

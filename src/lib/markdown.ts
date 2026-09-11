@@ -19,7 +19,7 @@ export function markdownTwin(site: SiteConfig, post: PostContent): string {
     `canonical: ${absoluteUrl(site, `/posts/${post.slug}`)}`,
     `published: ${isoDay(post.publishedAt)}`,
     ...(post.updatedAt ? [`updated: ${isoDay(post.updatedAt)}`] : []),
-    `tags: [${post.tags.join(', ')}]`,
+    `tags: [${post.tags.map((tag) => JSON.stringify(tag)).join(', ')}]`,
     '---',
   ]
   return `${front.join('\n')}\n\n${post.raw.trim()}\n`

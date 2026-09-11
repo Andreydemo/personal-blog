@@ -14,6 +14,7 @@ export function sitemapEntries(site: SiteConfig, posts: PostMeta[]): MetadataRou
   return [
     { url: site.url, lastModified: siteWide },
     { url: absoluteUrl(site, '/about'), lastModified: siteWide },
+    { url: absoluteUrl(site, '/posts'), lastModified: siteWide },
     { url: absoluteUrl(site, '/tags'), lastModified: siteWide },
     ...allTags(posts).map(({ tag }) => ({
       url: absoluteUrl(site, `/tags/${tag}`),

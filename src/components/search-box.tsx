@@ -30,7 +30,7 @@ export function SearchBox() {
       />
       <kbd
         aria-hidden="true"
-        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-zinc-300 px-1 font-sans text-[10px] text-zinc-500 peer-focus:hidden dark:border-zinc-700"
+        className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 rounded border border-zinc-300 px-1 font-sans text-[10px] text-zinc-600 dark:text-zinc-400 peer-focus:hidden dark:border-zinc-700"
       >
         /
       </kbd>
